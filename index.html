@@ -1,0 +1,1172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Portfolio of Abdul Bassit Adams, Network Engineer and Cloud Architect specializing in AWS, Kubernetes, and network security.">
+  <meta name="keywords" content="Network Engineer, Cloud Architect, AWS, Kubernetes, IT Infrastructure, Network Security">
+  <meta name="author" content="Abdul Bassit Adams">
+  <title>Abdul Bassit Adams - Network Engineer & Cloud Architect</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Custom CSS -->
+  <style>
+    :root {
+      --primary: #0a3d62;
+      --secondary: #3c6382;
+      --accent: #f4d35e;
+      --light: #f8f9fa;
+      --dark: #2c3e50;
+      --gradient: linear-gradient(135deg, #0a3d62 0%, #3c6382 100%);
+      --shadow-light: 0 5px 15px rgba(10, 61, 98, 0.08);
+      --shadow-medium: 0 10px 30px rgba(10, 61, 98, 0.15);
+      --shadow-heavy: 0 20px 60px rgba(10, 61, 98, 0.25);
+      --transition: all 0.3s ease;
+    }
+
+    [data-theme="dark"] {
+      --light: #1a252f;
+      --dark: #e0e0e0;
+      --shadow-light: 0 5px 15px rgba(0, 0, 0, 0.2);
+      --shadow-medium: 0 10px 30px rgba(0, 0, 0, 0.3);
+      --shadow-heavy: 0 20px 60px rgba(0, 0, 0, 0.4);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--light);
+      color: var(--dark);
+      line-height: 1.7;
+      scroll-behavior: smooth;
+      transition: var(--transition);
+      overflow-x: hidden;
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: var(--light);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: var(--primary);
+      border-radius: 4px;
+    }
+
+    /* Loading Spinner */
+    #loading {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      transition: opacity 0.5s ease;
+    }
+
+    .spinner {
+      border: 4px solid var(--accent);
+      border-top: 4px solid var(--primary);
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* Dark Mode Toggle */
+    #theme-toggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 1000;
+      transition: var(--transition);
+    }
+
+    #theme-toggle:hover {
+      background: var(--accent);
+      color: var(--primary);
+    }
+
+    /* Back to Top Button */
+    #back-to-top {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      opacity: 0;
+      visibility: hidden;
+      transition: var(--transition);
+      z-index: 1000;
+    }
+
+    #back-to-top.show {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    #back-to-top:hover {
+      background: var(--accent);
+      color: var(--primary);
+    }
+
+    /* Navigation */
+    .navbar {
+      background: rgba(10, 61, 98, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 0.75rem 0;
+      transition: var(--transition);
+    }
+
+    .navbar.scrolled {
+      padding: 0.5rem 0;
+      box-shadow: var(--shadow-medium);
+    }
+
+    .navbar-brand {
+      font-family: 'Playfair Display', serif;
+      font-weight: 600;
+      font-size: 1.8rem;
+      color: white !important;
+      letter-spacing: -0.5px;
+    }
+
+    .nav-link {
+      color: rgba(255, 255, 255, 0.9) !important;
+      font-weight: 500;
+      font-size: 1rem;
+      padding: 0.5rem 1rem;
+      transition: var(--transition);
+      position: relative;
+    }
+
+    .nav-link:hover, .nav-link.active {
+      color: var(--accent) !important;
+      transform: translateY(-2px);
+    }
+
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: -5px;
+      left: 50%;
+      background: var(--accent);
+      transition: var(--transition);
+      transform: translateX(-50%);
+    }
+
+    .nav-link:hover::after, .nav-link.active::after {
+      width: 100%;
+    }
+
+    .navbar-toggler {
+      border: none;
+    }
+
+    .navbar-toggler-icon {
+      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(255, 255, 255, 0.8)' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+    }
+
+    /* Hero Section */
+    .hero {
+      background: var(--gradient);
+      color: white;
+      min-height: 80vh;
+      display: flex;
+      align-items: center;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><polygon fill="rgba(255,255,255,0.05)" points="0,1000 1000,800 1000,1000"/></svg>') no-repeat center bottom;
+      background-size: cover;
+      z-index: 1;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 4rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+      letter-spacing: -1.5px;
+      animation: fadeInUp 1s ease-out;
+    }
+
+    .hero h3 {
+      font-size: 1.6rem;
+      font-weight: 300;
+      margin-bottom: 2rem;
+      opacity: 0.9;
+      animation: fadeInUp 1s ease-out 0.2s both;
+    }
+
+    .hero .lead {
+      font-size: 1.2rem;
+      font-weight: 400;
+      max-width: 600px;
+      margin: 0 auto 2rem;
+      opacity: 0.85;
+      animation: fadeInUp 1s ease-out 0.4s both;
+    }
+
+    .hero-buttons {
+      animation: fadeInUp 1s ease-out 0.6s both;
+    }
+
+    .btn {
+      padding: 10px 28px;
+      font-weight: 500;
+      border-radius: 50px;
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      border: 2px solid var(--accent);
+      color: var(--primary);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-medium);
+      background: #f7e08a;
+    }
+
+    .btn-outline-light {
+      background: transparent;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      color: white;
+    }
+
+    .btn-outline-light:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: white;
+      color: white;
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-medium);
+    }
+
+    /* Section Styling */
+    .section {
+      padding: 60px 0;
+      position: relative;
+    }
+
+    .section h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem;
+      color: var(--primary);
+      margin-bottom: 2rem;
+      text-align: center;
+      position: relative;
+    }
+
+    .section h2::after {
+      content: '';
+      position: absolute;
+      width: 60px;
+      height: 3px;
+      background: var(--accent);
+      bottom: -8px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-radius: 2px;
+    }
+
+    /* Cards */
+    .card {
+      border: none;
+      border-radius: 15px;
+      box-shadow: var(--shadow-light);
+      transition: var(--transition);
+      background: var(--light);
+      overflow: hidden;
+      height: 100%;
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-heavy);
+    }
+
+    .card-body {
+      padding: 1.5rem;
+    }
+
+    .card-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      color: var(--primary);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+    }
+
+    .cert-logo, .skill-icon {
+      width: 45px;
+      height: 45px;
+      margin-right: 12px;
+      background: var(--gradient);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.3rem;
+      flex-shrink: 0;
+    }
+
+    /* Profile Picture */
+    .profile-pic {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid var(--accent);
+      box-shadow: var(--shadow-light);
+      transition: var(--transition);
+    }
+
+    .profile-pic:hover {
+      transform: scale(1.05);
+    }
+
+    /* Skills Section */
+    .skill-category {
+      margin-bottom: 2rem;
+    }
+
+    .skill-category h5 {
+      font-family: 'Playfair Display', serif;
+      color: var(--primary);
+      margin-bottom: 1rem;
+      font-size: 1.5rem;
+    }
+
+    .skill-list {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .skill-list li {
+      margin-bottom: 0.5rem;
+      font-size: 0.95rem;
+    }
+
+    /* Project Cards */
+    .project-card {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .project-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: var(--gradient);
+      z-index: 1;
+    }
+
+    .project-link {
+      color: var(--primary);
+      font-weight: 500;
+      text-decoration: none;
+      transition: var(--transition);
+    }
+
+    .project-link:hover {
+      color: var(--accent);
+      text-decoration: underline;
+    }
+
+    .project-tech {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .project-tech li {
+      margin-bottom: 0.5rem;
+      font-size: 0.95rem;
+    }
+
+    /* Project Filters */
+    .filter-buttons {
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .filter-btn {
+      background: none;
+      border: 2px solid var(--primary);
+      color: var(--primary);
+      padding: 8px 18px;
+      margin: 0 0.4rem;
+      border-radius: 25px;
+      font-weight: 500;
+      transition: var(--transition);
+    }
+
+    .filter-btn.active, .filter-btn:hover {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+
+    /* Timeline for Experience */
+    .timeline {
+      position: relative;
+      padding-left: 2rem;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 3px;
+      background: var(--gradient);
+    }
+
+    .timeline-item {
+      position: relative;
+      margin-bottom: 2rem;
+    }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -2rem;
+      top: 0;
+      width: 12px;
+      height: 12px;
+      background: var(--accent);
+      border-radius: 50%;
+      transform: translateX(-50%);
+      box-shadow: 0 0 0 4px var(--light), 0 0 0 6px var(--primary);
+    }
+
+    /* Contact Form */
+    .form-control {
+      border: 2px solid #e9ecef;
+      border-radius: 10px;
+      padding: 10px 12px;
+      transition: var(--transition);
+      background: var(--light);
+    }
+
+    .form-control:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 0.2rem rgba(10, 61, 98, 0.1);
+    }
+
+    .form-label {
+      font-weight: 500;
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+    }
+
+    .invalid-feedback {
+      font-size: 0.85rem;
+      color: #dc3545;
+    }
+
+    /* Footer */
+    footer {
+      background: var(--gradient);
+      color: white;
+      padding: 2rem 0;
+      text-align: center;
+      position: relative;
+    }
+
+    .social-links {
+      margin-bottom: 1.5rem;
+    }
+
+    .social-links a {
+      color: white;
+      font-size: 1.6rem;
+      margin: 0 0.8rem;
+      transition: var(--transition);
+    }
+
+    .social-links a:hover {
+      color: var(--accent);
+      transform: translateY(-3px);
+    }
+
+    /* Animations */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.5s ease;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Background Patterns */
+    .bg-pattern::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="1" fill="rgba(10,61,98,0.05)"/></svg>') repeat;
+      background-size: 40px 40px;
+      pointer-events: none;
+      opacity: 0.4;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 992px) {
+      .hero h1 { font-size: 3rem; }
+      .hero h3 { font-size: 1.4rem; }
+      .hero .lead { font-size: 1rem; }
+      .section { padding: 40px 0; }
+      .section h2 { font-size: 2rem; }
+      .navbar-nav { text-align: center; }
+      .nav-link { font-size: 0.9rem; padding: 0.6rem; }
+      .profile-pic { width: 100px; height: 100px; }
+    }
+
+    @media (max-width: 576px) {
+      .hero { min-height: 70vh; padding: 80px 0; }
+      .hero h1 { font-size: 2.2rem; }
+      .hero h3 { font-size: 1.2rem; }
+      .section { padding: 30px 0; }
+      .card-title { font-size: 1.2rem; }
+      .cert-logo, .skill-icon { width: 40px; height: 40px; font-size: 1.1rem; }
+      .skill-list li, .project-tech li { font-size: 0.9rem; }
+      .btn { width: 100%; margin: 0.4rem 0; }
+      .timeline { padding-left: 1.5rem; }
+      .timeline-item::before { left: -1.5rem; }
+      .profile-pic { width: 80px; height: 80px; margin: 0 auto 1rem; }
+      .about-content { text-align: center; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Loading Spinner -->
+  <div id="loading">
+    <div class="spinner"></div>
+  </div>
+
+  <!-- Dark Mode Toggle -->
+  <button id="theme-toggle" aria-label="Toggle Dark Mode">
+    <i class="fas fa-moon"></i>
+  </button>
+
+  <!-- Back to Top Button -->
+  <button id="back-to-top" aria-label="Back to Top">
+    <i class="fas fa-chevron-up"></i>
+  </button>
+
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark sticky-top" id="navbar">
+    <div class="container">
+      <a class="navbar-brand" href="#home">Abdul Bassit Adams</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link active" href="#home">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="#education">Education</a></li>
+          <li class="nav-item"><a class="nav-link" href="#certifications">Certifications</a></li>
+          <li class="nav-item"><a class="nav-link" href="#experience">Experience</a></li>
+          <li class="nav-item"><a class="nav-link" href="#skills">Skills</a></li>
+          <li class="nav-item"><a class="nav-link" href="#projects">Projects</a></li>
+          <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section id="home" class="hero">
+    <div class="container hero-content">
+      <h1>Abdul Bassit Adams</h1>
+      <h3>Network Engineer & Cloud Architect</h3>
+      <p class="lead">Building secure, scalable IT infrastructures with expertise in AWS, Kubernetes, and network security solutions that drive business excellence.</p>
+      <div class="hero-buttons">
+        <a href="#projects" class="btn btn-primary">View My Work</a>
+        <a href="abdul_bassit_adams_cv.jpg" class="btn btn-outline-light" download>Download Resume</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="section bg-pattern">
+    <div class="container">
+      <h2>About Me</h2>
+      <div class="row justify-content-center">
+        <div class="col-lg-8 fade-in">
+          <div class="card">
+            <div class="card-body text-center">
+              <p class="lead">Results-driven Network Engineer and Cloud Architect with over three years of experience designing, deploying, and optimizing secure IT infrastructures. Proficient in AWS, Kubernetes, and network security, with a proven track record of implementing scalable cloud solutions and robust disaster recovery strategies.</p>
+              <p>Certified in CCNA, AWS Cloud Practitioner, and FortiGate Administration, I am passionate about delivering high-availability systems and driving operational excellence. Fluent in English and French, I thrive in dynamic environments and am committed to ensuring compliance with industry standards.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Education Section -->
+  <section id="education" class="section">
+    <div class="container">
+      <h2>Education</h2>
+      <div class="row justify-content-center">
+        <div class="col-lg-8 fade-in">
+          <div class="card">
+            <div class="card-body">
+              <div class="d-flex align-items-center mb-3">
+                <div class="skill-icon">
+                  <i class="fas fa-graduation-cap"></i>
+                </div>
+                <div>
+                  <h5 class="card-title mb-1">BSc Information Technology</h5>
+                  <h6 class="text-muted">Accra Institute of Technology (2017–2021)</h6>
+                </div>
+              </div>
+              <p class="card-text">Specialized in Computer Networks, Cloud Computing, and Software Engineering, gaining a strong foundation in IT infrastructure design and management. Graduated with comprehensive knowledge in modern IT practices and emerging technologies.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Certifications Section -->
+  <section id="certifications" class="section bg-pattern">
+    <div class="container">
+      <h2>Professional Certifications</h2>
+      <div class="row">
+        <div class="col-lg-4 col-md-6 mb-4 fade-in">
+          <div class="card h-100">
+            <div class="card-body">
+              <h5 class="card-title">
+                <div class="cert-logo">
+                  <i class="fas fa-network-wired"></i>
+                </div>
+                CCNA v1.1 (200-301)
+              </h5>
+              <p class="card-text">Cisco Certified Network Associate in routing and switching with advanced networking protocols and security implementations.</p>
+              <a href="https://coursera.org/verify/specialization/MHCW2JAUCHV7" target="_blank" rel="noopener noreferrer" class="project-link">View Credential</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6 mb-4 fade-in">
+          <div class="card h-100">
+            <div class="card-body">
+              <h5 class="card-title">
+                <div class="cert-logo">
+                  <i class="fab fa-aws"></i>
+                </div>
+                AWS Certified Cloud Practitioner
+              </h5>
+              <p class="card-text">Foundational certification in AWS cloud services and architecture with hands-on experience in cloud deployment.</p>
+              <a href="https://www.credly.com/badges/28a4e2c1-7de6-4375-b9bf-851816b2d6b9/linked_in_profile" target="_blank" rel="noopener noreferrer" class="project-link">View Credential</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6 mb-4 fade-in">
+          <div class="card h-100">
+            <div class="card-body">
+              <h5 class="card-title">
+                <div class="cert-logo">
+                  <i class="fas fa-shield-alt"></i>
+                </div>
+                FortiGate Administrator
+              </h5>
+              <p class="card-text">Expertise in configuring and managing FortiGate firewalls with advanced security policy implementation.</p>
+              <a href="https://www.coursera.org/account/accomplishments/verify/E7SNFRT9RYWT" target="_blank" rel="noopener noreferrer" class="project-link">View Credential</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6 mb-4 fade-in">
+          <div class="card h-100">
+            <div class="card-body">
+              <h5 class="card-title">
+                <div class="cert-logo">
+                  <i class="fas fa-cubes"></i>
+                </div>
+                Kubernetes Basics for DevOps
+              </h5>
+              <p class="card-text">Proficiency in container orchestration with Kubernetes for scalable application deployment.</p>
+              <a href="https://www.coursera.org/account/accomplishments/verify/M0PBC1J4K8T0" target="_blank" rel="noopener noreferrer" class="project-link">View Credential</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6 mb-4 fade-in">
+          <div class="card h-100">
+            <div class="card-body">
+              <h5 class="card-title">
+                <div class="cert-logo">
+                  <i class="fas fa-code"></i>
+                </div>
+                Terraform with Hands-on Labs
+              </h5>
+              <p class="card-text">Skilled in infrastructure-as-code with Terraform for automated cloud resource management.</p>
+              <a href="https://www.coursera.org/account/accomplishments/verify/8AZ17176Z4PS" target="_blank" rel="noopener noreferrer" class="project-link">View Credential</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6 mb-4 fade-in">
+          <div class="card h-100">
+            <div class="card-body">
+              <h5 class="card-title">
+                <div class="cert-logo">
+                  <i class="fas fa-cogs"></i>
+                </div>
+                Ansible for Infrastructure
+              </h5>
+              <p class="card-text">Automation of IT infrastructure using Ansible for efficient configuration management.</p>
+              <a href="https://www.coursera.org/account/accomplishments/verify/EK1I9CWSWC7I" target="_blank" rel="noopener noreferrer" class="project-link">View Credential</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Work Experience Section -->
+  <section id="experience" class="section">
+    <div class="container">
+      <h2>Work Experience</h2>
+      <div class="row justify-content-center">
+        <div class="col-lg-10 fade-in">
+          <div class="timeline">
+            <div class="timeline-item">
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">System Administrator</h5>
+                  <h6 class="text-muted mb-3">Best Point Savings and Loans • Feb 2022–Present</h6>
+                  <ul class="list-unstyled">
+                    <li><i class="fas fa-check-circle text-success me-2"></i>Managed IT infrastructure, including server installation, configuration, and updates across Windows, Linux, and macOS environments.</li>
+                    <li><i class="fas fa-check-circle text-success me-2"></i>Implemented disaster recovery and backup strategies, reducing system downtime by 30%.</li>
+                    <li><i class="fas fa-check-circle text-success me-2"></i>Managed user accounts, permissions, and security policies to ensure data integrity and compliance.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="timeline-item">
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">Cloud Architect (AWS)</h5>
+                  <h6 class="text-muted mb-3">Freelance, Eric Heymann Hospital • March 2023–Jul 2024</h6>
+                  <ul class="list-unstyled">
+                    <li><i class="fas fa-check-circle text-success me-2"></i>Designed and deployed a secure AWS-based Hospital Management System using EC2, S3, and RDS.</li>
+                    <li><i class="fas fa-check-circle text-success me-2"></i>Configured AWS CloudWatch for real-time monitoring and logging, ensuring 99.9% system reliability.</li>
+                    <li><i class="fas fa-check-circle text-success me-2"></i>Ensured HIPAA compliance and reduced operational costs by 20% through optimized cloud architecture.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="timeline-item">
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">IT Support Intern</h5>
+                  <h6 class="text-muted mb-3">Accra Institute of Technology • March 2018–Aug 2018</h6>
+                  <ul class="list-unstyled">
+                    <li><i class="fas fa-check-circle text-success me-2"></i>Provided critical IT support during company-wide remote work transitions.</li>
+                    <li><i class="fas fa-check-circle text-success me-2"></i>Assisted in patching, backups, and setting up redundant disaster recovery systems.</li>
+                    <li><i class="fas fa-check-circle text-success me-2"></i>Diagnosed and resolved hardware, software, and network issues for 200+ end-users.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills Section -->
+  <section id="skills" class="section bg-pattern">
+    <div class="container">
+      <h2>Technical Skills</h2>
+      <div class="row">
+        <div class="col-lg-4 mb-3 fade-in">
+          <div class="skill-category">
+            <h5><i class="fas fa-cloud me-2"></i>Cloud Computing</h5>
+            <ul class="skill-list">
+              <li><i class="fas fa-check-circle text-success me-2"></i>AWS</li>
+              <li><i class="fas fa-check-circle text-success me-2"></i>Microsoft Azure</li>
+              <li><i class="fas fa-check-circle text-success me-2"></i>Google Cloud</li>
+              <li><i class="fas fa-check-circle text-success me-2"></i>Oracle Cloud</li>
+              <li><i class="fas fa-check-circle text-success me-2"></i>CloudWatch</li>
+              <li><i class="fas fa-check-circle text-success me-2"></i>EC2</li>
+              <li><i class="fas fa-check-circle text-success me-2"></i>S3</li>
+              <li><i class="fas fa-check-circle text-success me-2"></i>RDS</li>
+              </ul>
+          </div>
+        </div>
+        <div class="col-lg-4 mb-3 fade-in">
+          <div class="skill-category">
+            <h5><i class="fas fa-network-wired me-2"></i>Networking</h5>
+            <ul class="skill-list">
+              <li><i class="fas fa-check-circle text-success me-2"></i>VLAN & Routing</li>
+              <li><i class="fas fa-check-circle text-success me-2"></i>IPsec</li>
+              <li><i class="fas fa-check-circle text-success me-2"></i>SDWAN & MPLS</li>
+              <li><i class="fas fa-check-circle text-success me-2"></i>TCP/IP</li>
+              <li><i class="fas fa-check-circle text-success me-2"></i>DNS/DHCP</li>
+              <li><i class="fas fa-check-circle text-success me-2"></i>Load Balancing</li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-lg-4 mb-3 fade-in">
+          <div class="skill-category">
+            <h5><i class="fas fa-shield-alt me-2"></i>DevOps & Security</h5>
+            <ul class="skill-list">
+              <li><i class="fas fa-check-circle text-success me-2"></i>Kubernetes</li>
+              <li><i class="fas fa-check-circle text-success me-2"></i>Ansible</li>
+              <li><i class="fas fa-check-circle text-success me-2"></i>Docker</li>
+              <li><i class="fas fa-check-circle text-success me-2"></i>Terraform</li>
+              <li><i class="fas fa-check-circle text-success me-2"></i>Helm</li>            
+              <li><i class="fas fa-check-circle text-success me-2"></i>Prometheus</li>              
+              <li><i class="fas fa-check-circle text-success me-2"></i>FortiGate</li>
+              <li><i class="fas fa-check-circle text-success me-2"></i>IPS/IDS</li>
+              <li><i class="fas fa-check-circle text-success me-2"></i>CI/CD</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects Section -->
+  <section id="projects" class="section">
+    <div class="container">
+      <h2>Featured Projects</h2>
+      <div class="filter-buttons">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="cloud">Cloud</button>
+        <button class="filter-btn" data-filter="networking">Networking</button>
+      </div>
+      <div class="row projects-container">
+        <div class="col-lg-6 mb-3 fade-in project-item" data-category="cloud">
+          <div class="card project-card h-100">
+            <div class="card-body">
+              <h5 class="card-title">
+                <i class="fas fa-hospital me-2"></i>
+                Hospital Management System on AWS
+              </h5>
+              <p class="card-text">Designed a comprehensive, secure, and scalable cloud infrastructure for Eric Heymann Hospital using AWS EC2, S3, and RDS. Implemented CloudWatch for real-time monitoring and Terraform for infrastructure-as-code deployment.</p>
+              <div class="mb-3">
+                <strong class="text-success">Outcome:</strong> Improved system reliability to 99.9% uptime, ensured HIPAA compliance, and reduced operational costs by 20% through optimized resource allocation.
+              </div>
+              <div class="mb-3">
+                <strong>Technologies:</strong>
+                <ul class="project-tech">
+                  <li><i class="fas fa-check-circle text-success me-2"></i>AWS</li>
+                  <li><i class="fas fa-check-circle text-success me-2"></i>Terraform</li>
+                  <li><i class="fas fa-check-circle text-success me-2"></i>CloudWatch</li>
+                  <li><i class="fas fa-check-circle text-success me-2"></i>Linux</li>
+                </ul>
+              </div>
+              <a href="https://github.com/Piousbwoy/prometheus" target="_blank" rel="noopener noreferrer" class="project-link">View Project</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6 mb-3 fade-in project-item" data-category="networking">
+          <div class="card project-card h-100">
+            <div class="card-body">
+              <h5 class="card-title">
+                <i class="fas fa-server me-2"></i>
+                CI/CD Pipeline on AWS
+              </h5>
+              <p class="card-text">Setting up a CI/CD Pipeline for Java (Maven)Application Using Jenkins.</p>
+              <div class="mb-3">
+                <strong class="text-success">Outcome:</strong> Enhanced network performance by 40%, implemented zero-trust security model, and established automated backup systems reducing recovery time by 30%.
+              </div>
+              <div class="mb-3">
+                <strong>Technologies:</strong>
+                <ul class="project-tech">
+                  <li><i class="fas fa-check-circle text-success me-2"></i>Jenkins</li>
+                  <li><i class="fas fa-check-circle text-success me-2"></i>Cloudformation</li>
+                  <li><i class="fas fa-check-circle text-success me-2"></i>ECS</li>
+                  <li><i class="fas fa-check-circle text-success me-2"></i>CloudWatch</li>
+                </ul>
+              </div>
+              <a href="https://github.com/Piousbwoy/node-docker-good-defaults" target="_blank" rel="noopener noreferrer" class="project-link">View Project</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="section bg-pattern">
+    <div class="container">
+      <h2>Contact Me</h2>
+      <div class="row">
+        <div class="col-md-6 offset-md-3 fade-in">
+          <p><strong>Email:</strong> <a href="mailto:abdulbassitadams@gmail.com">abdulbassitadams@gmail.com</a></p>
+          <p><strong>Phone:</strong> +233 508727884</p>
+          <p><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/abdul-basit-adams-390389226/" target="_blank" rel="noopener noreferrer">@Abdulbasitadams</a></p>
+          <form id="contact-form" action="https://formspree.io/f/your-form-id" method="POST">
+            <div class="mb-3">
+              <label for="name" class="form-label">Name</label>
+              <input type="text" class="form-control" id="name" name="name" required aria-describedby="nameError">
+              <div id="nameError" class="invalid-feedback">Please enter your name.</div>
+            </div>
+            <div class="mb-3">
+              <label for="email" class="form-label">Email</label>
+              <input type="email" class="form-control" id="email" name="email" required aria-describedby="emailError">
+              <div id="emailError" class="invalid-feedback">Please enter a valid email address.</div>
+            </div>
+            <div class="mb-3">
+              <label for="message" class="form-label">Message</label>
+              <textarea class="form-control" id="message" name="message" rows="4" required aria-describedby="messageError"></textarea>
+              <div id="messageError" class="invalid-feedback">Please enter your message.</div>
+            </div>
+            <button type="submit" class="btn btn-primary">Send Message</button>
+            <div id="form-success" class="text-success mt-2 d-none">Message sent successfully!</div>
+            <div id="form-error" class="text-danger mt-2 d-none">Error sending message. Please try again.</div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="social-links">
+        <a href="https://x.com/adams1715490" target="_blank" rel="noopener noreferrer" aria-label="Twitter">
+          <i class="fab fa-twitter"></i>
+        </a>
+        <a href="https://www.linkedin.com/in/abdul-basit-adams-390389226/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+          <i class="fab fa-linkedin"></i>
+        </a>
+        <a href="https://github.com/Piousbwoy" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+          <i class="fab fa-github"></i>
+        </a>
+      </div>
+      <p>© 2025 Abdul Bassit Adams. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Custom JavaScript -->
+  <script>
+    // Smooth Scrolling
+    document.querySelectorAll('a.nav-link').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href').substring(1);
+        const targetElement = document.getElementById(targetId);
+        window.scrollTo({
+          top: targetElement.offsetTop - 60,
+          behavior: 'smooth'
+        });
+        document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
+        this.classList.add('active');
+      });
+    });
+
+    // Navbar Scroll Effect
+    window.addEventListener('scroll', () => {
+      const navbar = document.getElementById('navbar');
+      if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
+
+    // Fade-in Animation
+    document.addEventListener('DOMContentLoaded', () => {
+      const elements = document.querySelectorAll('.fade-in');
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+      elements.forEach(element => observer.observe(element));
+    });
+
+    // Back to Top Button
+    const backToTop = document.getElementById('back-to-top');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 300) {
+        backToTop.classList.add('show');
+      } else {
+        backToTop.classList.remove('show');
+      }
+    });
+
+    backToTop.addEventListener('click', (e) => {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // Dark Mode Toggle
+    const themeToggle = document.getElementById('theme-toggle');
+    const setTheme = theme => {
+      document.documentElement.setAttribute('data-theme', theme);
+      localStorage.setItem('theme', theme);
+      themeToggle.innerHTML = theme === 'dark' ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+    };
+
+    themeToggle.addEventListener('click', () => {
+      const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+      setTheme(currentTheme === 'dark' ? 'light' : 'dark');
+    });
+
+    // Apply saved theme
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    setTheme(savedTheme);
+
+    // Loading Spinner
+    window.addEventListener('load', () => {
+      const loading = document.getElementById('loading');
+      loading.style.opacity = '0';
+      setTimeout(() => {
+        loading.style.display = 'none';
+      }, 500);
+    });
+
+    // Contact Form Validation
+    const form = document.getElementById('contact-form');
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (form.checkValidity()) {
+        try {
+          const formData = new FormData(form);
+          const response = await fetch(form.action, {
+            method: 'POST',
+            body: formData,
+            headers: { 'Accept': 'application/json' }
+          });
+          if (response.ok) {
+            form.reset();
+            form.classList.remove('was-validated');
+            document.getElementById('form-success').classList.remove('d-none');
+            document.getElementById('form-error').classList.add('d-none');
+            setTimeout(() => {
+              document.getElementById('form-success').classList.add('d-none');
+            }, 5000);
+          } else {
+            document.getElementById('form-error').classList.remove('d-none');
+            setTimeout(() => {
+              document.getElementById('form-error').classList.add('d-none');
+            }, 5000);
+          }
+        } catch (error) {
+          document.getElementById('form-error').classList.remove('d-none');
+          setTimeout(() => {
+            document.getElementById('form-error').classList.add('d-none');
+          }, 5000);
+        }
+      } else {
+        form.classList.add('was-validated');
+      }
+    });
+
+    // Project Filter
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const projectItems = document.querySelectorAll('.project-item');
+
+    filterButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const filter = button.getAttribute('data-filter');
+        filterButtons.forEach(btn => btn.classList.remove('active'));
+        button.classList.add('active');
+
+        projectItems.forEach(item => {
+          const category = item.getAttribute('data-category');
+          if (filter === 'all' || category === filter) {
+            item.style.display = 'block';
+            item.classList.remove('fade-in');
+            void item.offsetWidth;
+            item.classList.add('fade-in');
+          } else {
+            item.style.display = 'none';
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>
